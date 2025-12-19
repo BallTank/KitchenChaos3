@@ -68,8 +68,7 @@ public class StoveCounter : BaseCounter, IHasProgress {
                         progressNormalized = burningTimer / burningRecipeSO.burningTimerMax
                     });
 
-                    if (burningRecipeSO.burningTimerMax is not 0)
-                        Debug.Log("burningRecipeSO: " + burningRecipeSO.burningTimerMax);
+
                     if (burningTimer > burningRecipeSO.burningTimerMax) {
                         // Fried
                         GetKitchenObject().DestroySelf();
