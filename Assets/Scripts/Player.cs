@@ -26,7 +26,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent {
 
 
     private void Awake() {
-        if(Instance != null) {
+        if (Instance != null) {
             Debug.LogError("There's more than one Player instance");
         }
         Instance = this;
@@ -101,7 +101,9 @@ public class Player : MonoBehaviour, IKitchenObjectParent {
 
             // Attempt only X movement
             Vector3 moveDirX = new Vector3(moveDir.x, 0, 0).normalized;
-            canMove = moveDir.x != 0 && !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight,
+            canMove = (moveDir.x < -.5f || moveDir.x > +.5f) &&
+                !Physics.CapsuleCast(
+                transform.position, transform.position + Vector3.up * playerHeight,
                 playerRadius, moveDirX, moveDistance);
 
             if (canMove) {
@@ -112,7 +114,9 @@ public class Player : MonoBehaviour, IKitchenObjectParent {
 
                 // Attempt only Z movement
                 Vector3 moveDirZ = new Vector3(0, 0, moveDir.z).normalized;
-                canMove = moveDir.z != 0 && !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight,
+                canMove = (moveDir.z < -.5f || moveDir.z > .5f) &&
+                    !Physics.CapsuleCast(
+                    transform.position, transform.position + Vector3.up * playerHeight,
                     playerRadius, moveDirZ, moveDistance);
 
                 if (canMove) {
@@ -148,7 +152,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent {
     public void SetKitchenObject(KitchenObject kitchenObject) {
         this.kitchenObject = kitchenObject;
 
-        if(kitchenObject != null) {
+        if (kitchenObject != null) {
             OnPickedSomething?.Invoke(this, EventArgs.Empty);
         }
     }
